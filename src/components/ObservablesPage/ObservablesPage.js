@@ -4,6 +4,7 @@ import React, { PropTypes, Component } from 'react';
 import styles from './ObservablesPage.css';
 import withStyles from '../../decorators/withStyles';
 import http from '../../core/HttpClient';
+import { servers } from '../../config';
 
 @withStyles(styles)
 class ObservablesPage extends Component {
@@ -11,24 +12,30 @@ class ObservablesPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      observable: ''
+      observables: [],
     }
   }
 
   componentDidMount() {
-    this.getData().then((observable) => {
-      this.onDataReceived(observable);
+    let promises = this.getAllPromises();
+    Promise.all(promises).then((observables) => {
+      this.onDataReceived(observables);
     });
   }
 
   onDataReceived(data) {
     this.setState({
-      observable: data
+      observables: data
     });
   }
 
-  getData() {
-    return http.get('http://lvh.me:3000/version');
+  getAllPromises() {
+    let promises = [];
+    for( let server of servers ){
+      let promise = http.get(server.url);
+      promises.push(promise);
+    }
+    return promises;
   }
 
   render() {
@@ -44,13 +51,15 @@ class ObservablesPage extends Component {
             	<th>Author</th>
             	<th>Commits since master</th>
             </tr>
-            <tr>
-            	<td>{ 'localhost' }</td>
-            	<td dangerouslySetInnerHTML={{__html: this.state.observable.branch }} />
-            	<td dangerouslySetInnerHTML={{__html: this.state.observable.sha }} />
-            	<td dangerouslySetInnerHTML={{__html: this.state.observable.author }} />
-            	<td dangerouslySetInnerHTML={{__html: this.state.observable.count }} />
-            </tr>
+            { this.state.observables.map((observable, i) =>
+              <tr>
+                <td>{ 'localhost' }</td>
+                <td dangerouslySetInnerHTML={{__html: observable.branch }} />
+                <td dangerouslySetInnerHTML={{__html: observable.sha }} />
+                <td dangerouslySetInnerHTML={{__html: observable.author }} />
+                <td dangerouslySetInnerHTML={{__html: observable.count }} />
+              </tr>
+            )}
             </tbody>
           </table>
         </div>
