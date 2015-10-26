@@ -1,6 +1,7 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
 import React, { PropTypes, Component } from 'react';
+import io from 'socket.io-client'
 import styles from './ObservablesPage.css';
 import withStyles from '../../decorators/withStyles';
 import http from '../../core/HttpClient';
@@ -17,25 +18,14 @@ class ObservablesPage extends Component {
   }
 
   componentDidMount() {
-    let promises = this.getAllPromises();
-    Promise.all(promises).then((observables) => {
-      this.onDataReceived(observables);
+    let socket = io.connect('http://localhost:8080');
+    socket.emit('message', 'hello world!');
+    socket.on('observe', (observables) => {
+      console.log('got observables' + observables);
+      this.setState({
+        observables: data
+      });
     });
-  }
-
-  onDataReceived(data) {
-    this.setState({
-      observables: data
-    });
-  }
-
-  getAllPromises() {
-    let promises = [];
-    for( let server of servers ){
-      let promise = http.get(server.url);
-      promises.push(promise);
-    }
-    return promises;
   }
 
   render() {

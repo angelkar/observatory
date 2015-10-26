@@ -7,6 +7,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/server';
 import Router from './routes';
 import Html from './components/Html';
+import http from 'http';
+import io from 'socket.io'
 
 const server = global.server = express();
 
@@ -55,4 +57,19 @@ server.listen(server.get('port'), () => {
   if (process.send) {
     process.send('online');
   }
+});
+
+//
+// Attach the socket.io server
+// -----------------------------------------------------------------------------
+const server_instance = http.Server(server);
+const socket_io = io(server_instance);
+
+server_instance.listen(8080);
+
+socket_io.on('connection', (socket) => {
+  console.log('New connection');
+  socket.on('message', (msg) => {
+      console.log('Got message from client: ' + msg);
+  });
 });
