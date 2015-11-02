@@ -26,7 +26,7 @@ class ObservablesPage extends Component {
 
     socket.on('observe', (response) => {
       this.setState({
-        observables: response.observables.filter(function(item){ return (item !== null);})
+        observables: response.observables
       });
     });
   }
@@ -43,6 +43,7 @@ class ObservablesPage extends Component {
             	<th>Last Commit</th>
             	<th>Author</th>
             	<th>Commits since master</th>
+              <th>Last updated at</th>
             </tr>
             { this.state.observables.map((observable, i) =>
               <tr>
@@ -51,6 +52,7 @@ class ObservablesPage extends Component {
                 <td>{observable.sha}</td>
                 <td>{observable.author}</td>
                 <td>{observable.count}</td>
+                <td>{observable.updated_at}</td>
               </tr>
             )}
             </tbody>

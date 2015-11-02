@@ -1,3 +1,5 @@
+'use strict';
+
 import http from './HttpClient';
 import {
   poller_interval, servers
@@ -8,6 +10,7 @@ class Poller {
 
   constructor(io) {
     this.io = io;
+    this.pinged_servers = {};
   }
 
   execute() {
@@ -22,16 +25,38 @@ class Poller {
   }
 
   request() {
-    this.promises = this.getPromises();
-    Promise.all(this.promises).then((observables) => {
-      console.log('All polling requests complete. Broadcasting results.');
+    Promise.all(this.pingServers()).then((responses) => {
+      return this.compact(responses);
+    }).then((responses) => {
+      return this.store(responses);
+    }).then((responses) => {
+      return this.broadcast(responses);
+    });
+  }
+
+  // private
+
+  compact(items) {
+    return items.filter(function(item){ return (item !== null);});
+  }
+
+  store(items) {
+    items.forEach((observable, index) => {
+      this.pinged_servers[observable.domain] = observable;
+    });
+    return items;
+  }
+
+  broadcast(items) {
+    console.log('Broadcasting results');
+    Promise.all(items).then((responses) => {
       this.io.emit('observe', {
-        observables: observables
+        observables: responses
       });
     });
   }
 
-  getPromises() {
+  pingServers() {
     let promises = [];
     for (let server of servers) {
       let promise = http.get(server.url);

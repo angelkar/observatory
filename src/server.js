@@ -69,7 +69,6 @@ const socket_io = io(server_instance);
 server_instance.listen(8080);
 
 socket_io.on('connection', (socket) => {
-  console.log('New connection! Sending welcome message');
   socket.emit('welcome', { hello: 'world' });
 });
 

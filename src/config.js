@@ -2,7 +2,7 @@
 
 export default {
   googleAnalyticsId: 'UA-XXXXX-X',
-  poller_interval: 30000,
+  poller_interval: 15000,
   servers: [
     {
       name: 'lvh.me:3000',
