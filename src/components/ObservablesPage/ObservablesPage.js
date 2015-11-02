@@ -19,11 +19,14 @@ class ObservablesPage extends Component {
 
   componentDidMount() {
     let socket = io.connect('http://localhost:8080');
-    socket.emit('message', 'hello world!');
-    socket.on('observe', (observables) => {
-      console.log('got observables' + observables);
+
+    socket.on('welcome', (response) => {
+      console.log('Initialized web socket connection');
+    })
+
+    socket.on('observe', (response) => {
       this.setState({
-        observables: data
+        observables: response.observables.filter(function(item){ return (item !== null);})
       });
     });
   }
@@ -35,7 +38,7 @@ class ObservablesPage extends Component {
           <table id="observableTable">
           <tbody>
             <tr>
-            	<th>Name</th>
+            	<th>Environment</th>
             	<th>Branch</th>
             	<th>Last Commit</th>
             	<th>Author</th>
@@ -43,11 +46,11 @@ class ObservablesPage extends Component {
             </tr>
             { this.state.observables.map((observable, i) =>
               <tr>
-                <td>{ 'localhost' }</td>
-                <td dangerouslySetInnerHTML={{__html: observable.branch }} />
-                <td dangerouslySetInnerHTML={{__html: observable.sha }} />
-                <td dangerouslySetInnerHTML={{__html: observable.author }} />
-                <td dangerouslySetInnerHTML={{__html: observable.count }} />
+                <td>{observable.domain}</td>
+                <td>{observable.branch}</td>
+                <td>{observable.sha}</td>
+                <td>{observable.author}</td>
+                <td>{observable.count}</td>
               </tr>
             )}
             </tbody>

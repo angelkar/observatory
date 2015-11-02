@@ -2,10 +2,15 @@
 
 export default {
   googleAnalyticsId: 'UA-XXXXX-X',
+  poller_interval: 30000,
   servers: [
     {
-      name: 'higherstack',
+      name: 'lvh.me:3000',
       url:  'http://lvh.me:3000/version'
+    },
+    {
+      name: 'workablestg1.com',
+      url: 'http://workablestg1.com/version'
     }
   ]
 };

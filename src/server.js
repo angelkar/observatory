@@ -9,6 +9,7 @@ import Router from './routes';
 import Html from './components/Html';
 import http from 'http';
 import io from 'socket.io'
+import Poller from './core/poller'
 
 const server = global.server = express();
 
@@ -68,8 +69,9 @@ const socket_io = io(server_instance);
 server_instance.listen(8080);
 
 socket_io.on('connection', (socket) => {
-  console.log('New connection');
-  socket.on('message', (msg) => {
-      console.log('Got message from client: ' + msg);
-  });
+  console.log('New connection! Sending welcome message');
+  socket.emit('welcome', { hello: 'world' });
 });
+
+let poller = new Poller(socket_io);
+poller.execute();

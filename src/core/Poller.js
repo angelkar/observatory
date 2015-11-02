@@ -1,26 +1,39 @@
 import http from './HttpClient';
-import { servers } from '../config';
-import io from 'socket.io'
+import {
+  poller_interval, servers
+}
+from '../config';
 
 class Poller {
 
-  constructor(){
-    this.pollInterval = 3000;
+  constructor(io) {
+    this.io = io;
   }
 
-  poll(){
+  execute() {
+    this.request();
+    this.poll();
+  }
+
+  poll() {
     setInterval(() => {
-      this.promises = this.getPromises();
-      Promise.all(this.promises).then((observables) => {
-        console.log('Batch finished, broadcasting results');
-        io.emit('observe', { for: 'everyone' });
+      this.request();
+    }, poller_interval);
+  }
+
+  request() {
+    this.promises = this.getPromises();
+    Promise.all(this.promises).then((observables) => {
+      console.log('All polling requests complete. Broadcasting results.');
+      this.io.emit('observe', {
+        observables: observables
       });
-    }, this.pollInterval);
+    });
   }
 
   getPromises() {
     let promises = [];
-    for( let server of servers ){
+    for (let server of servers) {
       let promise = http.get(server.url);
       promises.push(promise);
     }
