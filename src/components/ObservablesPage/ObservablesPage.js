@@ -2,7 +2,7 @@
 
 import React, { PropTypes, Component } from 'react';
 import io from 'socket.io-client'
-import styles from './ObservablesPage.css';
+import styles from './ObservablesPage.scss';
 import withStyles from '../../decorators/withStyles';
 import http from '../../core/HttpClient';
 import { servers } from '../../config';
@@ -20,10 +20,6 @@ class ObservablesPage extends Component {
   componentDidMount() {
     let socket = io.connect('http://localhost:8080');
 
-    socket.on('welcome', (response) => {
-      console.log('Initialized web socket connection');
-    })
-
     socket.on('observe', (response) => {
       this.setState({
         observables: response.observables
@@ -33,31 +29,29 @@ class ObservablesPage extends Component {
 
   render() {
     return (
-      <div className="ObservablePage">
-        <div className="ObservablePage-container">
-          <table id="observableTable">
-          <tbody>
-            <tr>
-            	<th>Environment</th>
-            	<th>Branch</th>
-            	<th>Last Commit</th>
-            	<th>Author</th>
-            	<th>Commits since master</th>
-              <th>Last updated at</th>
-            </tr>
+      <div className="container">
+        <section>
+        	<table id="versionTable" className="basic-table">
+          	<th className="center">Environment</th>
+          	<th className="center">Branch</th>
+          	<th className="center">Last Commit</th>
+            <th className="center">Author</th>
+            <th className="center">Commits since master</th>
+            <th className="center">Last deploy at</th>
+          	<th className="center"><span className="lbl">Status</span></th>
             { this.state.observables.map((observable, i) =>
               <tr>
-                <td>{observable.domain}</td>
-                <td>{observable.branch}</td>
-                <td>{observable.sha}</td>
-                <td>{observable.author}</td>
-                <td>{observable.count}</td>
-                <td>{observable.updated_at}</td>
+                <td className="center">{observable.domain}</td>
+                <td className="center">{observable.branch}</td>
+                <td className="center">{observable.sha}</td>
+                <td className="center">{observable.author}</td>
+                <td className="center">{observable.count}</td>
+                <td className="center">{observable.updated_at}</td>
+                <td className="center">V</td>
               </tr>
             )}
-            </tbody>
-          </table>
-        </div>
+         	</table>
+        </section>
       </div>
     );
   }

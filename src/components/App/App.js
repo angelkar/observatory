@@ -22,7 +22,6 @@ class App extends Component {
       <div>
         <Header />
         <ObservablesPage />
-        <Footer />
       </div>
     ) : this.props.children;
   }

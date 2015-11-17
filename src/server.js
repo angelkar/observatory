@@ -68,9 +68,5 @@ const socket_io = io(server_instance);
 
 server_instance.listen(8080);
 
-socket_io.on('connection', (socket) => {
-  socket.emit('welcome', { hello: 'world' });
-});
-
 let poller = new Poller(socket_io);
 poller.execute();

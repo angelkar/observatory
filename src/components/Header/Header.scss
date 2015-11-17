@@ -1,0 +1,68 @@
+@import "~/../bootstrap.css";
+
+$base: #7c7c80;
+$dark: #3a3a3c;
+$light: #f0f0f5;
+$medium: #d5d5db;
+$active: #13ad8e;
+$important: #d43f58;
+
+html {
+  height: 100%;
+}
+
+body {
+  font: normal 14px 'Lato', sans-serif;
+  color: $base;
+  height: 100%;
+}
+
+.center {
+  text-align: center !important;
+}
+
+header {
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  border-bottom: 2px solid $dark;
+  height: 235px;
+  background-color: #0b1213;
+
+  .header-content {
+    margin-top: -215px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .parallax-viewport {
+    position: relative;
+    overflow: hidden;
+    height: 235px;
+    width: 100%;
+    z-index: 1;
+    img.parallax-layer{
+      position: absolute;
+      top: 50%;
+      margin-top: -170px;
+      left: 50%;
+      margin-left: -1280px;
+    }
+  }
+
+  .logo {
+    display: block;
+    background: url('./logo.png') no-repeat center;
+    width: 155px;
+    height: 155px;
+    margin: 0 auto;
+  }
+  h1 {
+    margin: 10px 0 0;
+    padding: 0;
+    font-weight: 300;
+    font-size: 24px;
+    color: white;
+    text-shadow: 0 1px 0 black;
+  }
+}

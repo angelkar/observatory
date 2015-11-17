@@ -1,0 +1,94 @@
+@import "~/../bootstrap.css";
+
+$base: #7c7c80;
+$dark: #3a3a3c;
+$light: #f0f0f5;
+$medium: #d5d5db;
+$active: #13ad8e;
+$important: #d43f58;
+
+html {
+  height: 100%;
+}
+
+body {
+  font: normal 14px 'Lato', sans-serif;
+  color: $base;
+  height: 100%;
+}
+
+.center {
+  text-align: center !important;
+}
+
+.container {
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  section {
+    padding: 20px 0;
+    h2 {
+      font-weight: 300;
+      font-size: 22px;
+      color: $base;
+      margin: 10px 0 20px;
+    }
+    .basic-table {
+      min-width: 650px;
+      width: 50%;
+      margin: 0 auto;
+      tr {
+        &:nth-child(2) {
+          td {
+            background-color: $light;
+          }
+        }
+      }
+      th {
+        background-color: $dark;
+        color: white;
+        font-weight: 700;
+        &:first-child {
+
+        }
+        &:last-child {
+
+        }
+      }
+      td, th {
+        padding: 10px;
+        text-align: left;
+      }
+      td {
+        border-bottom: 1px solid $medium;
+      }
+    }
+  }
+  .lbl {
+
+    display: inline-block;
+    padding: 0 3px;
+    font-size: 12px;
+  }
+  .active {
+  	color: $active;
+  	.lbl {
+  	  @extend .lbl;
+    	border: 1px solid $active;
+  	}
+  }
+  .error {
+  	color: $important;
+  	.lbl {
+  	  @extend .lbl;
+    	border: 1px solid $important;
+  	}
+  }
+  .down {
+  	color: $base;
+  	.lbl {
+  	  @extend .lbl;
+    	border: 1px solid $base;
+  	}
+  }
+}
