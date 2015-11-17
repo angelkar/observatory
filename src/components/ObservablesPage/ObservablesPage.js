@@ -32,13 +32,16 @@ class ObservablesPage extends Component {
       <div className="container">
         <section>
         	<table id="versionTable" className="basic-table">
-          	<th className="center">Environment</th>
-          	<th className="center">Branch</th>
-          	<th className="center">Last Commit</th>
-            <th className="center">Author</th>
-            <th className="center">Commits since master</th>
-            <th className="center">Last deploy at</th>
-          	<th className="center"><span className="lbl">Status</span></th>
+            <tbody>
+            <tr>
+            	<th className="center">Environment</th>
+            	<th className="center">Branch</th>
+            	<th className="center">Last Commit</th>
+              <th className="center">Author</th>
+              <th className="center">Commits since master</th>
+              <th className="center">Last deploy at</th>
+            	<th className="center"><span className="lbl">Status</span></th>
+            </tr>
             { this.state.observables.map((observable, i) =>
               <tr>
                 <td className="center">{observable.domain}</td>
@@ -50,6 +53,7 @@ class ObservablesPage extends Component {
                 <td className="center">V</td>
               </tr>
             )}
+            </tbody>
          	</table>
         </section>
       </div>
