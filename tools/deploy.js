@@ -13,10 +13,10 @@ import fetch from './lib/fetch';
 
 // TODO: Update deployment URL
 // For more information visit http://gitolite.com/deploy.html
-const getRemote = (slot) => ({
-  name: slot ? slot : 'production',
-  url: `https://example${slot ? '-' + slot : ''}.scm.azurewebsites.net:443/example.git`,
-  website: `http://example${slot ? '-' + slot : ''}.azurewebsites.net`,
+const getHerokuRemote = () => ({
+  name: 'heroku',
+  url: 'https://git.heroku.com/ancient-ravine-1054.git',
+  website: 'http://ancient-ravine-1054.herokuapp.com/'
 });
 
 /**
@@ -24,8 +24,8 @@ const getRemote = (slot) => ({
  * server via Git. Example: `npm run deploy -- production`
  */
 export default task('deploy', async () => {
-  // By default deploy to the staging deployment slot
-  const remote = getRemote(process.argv.includes('production') ? null : 'staging');
+  // By default deploy to heroku
+  const remote = getHerokuRemote();
 
   // Initialize a new Git repository inside the `/build` folder
   // if it doesn't exist yet

@@ -5,7 +5,6 @@ import io from 'socket.io-client'
 import styles from './ObservablesPage.scss';
 import withStyles from '../../decorators/withStyles';
 import http from '../../core/HttpClient';
-import { servers } from '../../config';
 
 @withStyles(styles)
 class ObservablesPage extends Component {
@@ -18,8 +17,7 @@ class ObservablesPage extends Component {
   }
 
   componentDidMount() {
-    let socket = io.connect('http://localhost:8080');
-
+    let socket = io.connect();
     socket.on('observe', (response) => {
       this.setState({
         observables: response.observables

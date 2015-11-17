@@ -11,20 +11,21 @@ import http from 'http';
 import io from 'socket.io'
 import Poller from './core/poller'
 
-const server = global.server = express();
+const app = global.server = express();
+const port = (process.env.PORT || 5000);
 
-server.set('port', (process.env.PORT || 5000));
-server.use(express.static(path.join(__dirname, 'public')));
+app.set('port', port);
+app.use(express.static(path.join(__dirname, 'public')));
 
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
-server.use('/api/content', require('./api/content'));
+app.use('/api/content', require('./api/content'));
 
 //
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
-server.get('*', async (req, res, next) => {
+app.get('*', async (req, res, next) => {
   try {
     let statusCode = 200;
     const data = { title: '', description: '', css: '', body: '' };
@@ -51,22 +52,21 @@ server.get('*', async (req, res, next) => {
 //
 // Launch the server
 // -----------------------------------------------------------------------------
-
-server.listen(server.get('port'), () => {
-  /* eslint-disable no-console */
-  console.log('The server is running at http://localhost:' + server.get('port'));
-  if (process.send) {
-    process.send('online');
-  }
-});
+// Remove this, we need the port for the server instance below
+// app.listen(app.get('port'), () => {
+//   /* eslint-disable no-console */
+//   console.log('The server is running at http://localhost:' + app.get('port'));
+//   if (process.send) {
+//     process.send('online');
+//   }
+// });
 
 //
 // Attach the socket.io server
 // -----------------------------------------------------------------------------
-const server_instance = http.Server(server);
-const socket_io = io(server_instance);
-
-server_instance.listen(8080);
+const server = http.createServer(app);
+server.listen(port);
+const socket_io = io.listen(server);
 
 let poller = new Poller(socket_io);
 poller.execute();
