@@ -7,6 +7,8 @@ Add the URL as an environment variable on the Heroku app. The variable name must
 ```
 OBSERVE_SERVER_4=https://a-staging-environment.com
 ```
+## Yes, but I want to work on this locally
+Just add the environment variables on your machine. Same rules apply.
 
 ## How do I deploy a new version?
 Easy peasy.
