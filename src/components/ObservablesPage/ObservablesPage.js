@@ -32,23 +32,25 @@ class ObservablesPage extends Component {
         	<table id="versionTable" className="basic-table">
             <tbody>
             <tr>
-            	<th className="center">Environment</th>
+            	<th className="center">Server</th>
+              <th className="center">Environment</th>
             	<th className="center">Branch</th>
-            	<th className="center">Last Commit</th>
+            	<th className="center">Commit Message</th>
+              <th className="center">Commit Hash</th>
               <th className="center">Author</th>
               <th className="center">Commits since master</th>
-              <th className="center">Last deploy at</th>
-            	<th className="center"><span className="lbl">Status</span></th>
+              <th className="center">Last Deployment</th>
             </tr>
             { this.state.observables.map((observable, i) =>
               <tr>
-                <td className="center">{observable.domain}</td>
+                <td className="center">{observable.server}</td>
+                <td className="center">{observable.environment}</td>
                 <td className="center">{observable.branch}</td>
+                <td className="center">{observable.commit}</td>
                 <td className="center">{observable.sha}</td>
                 <td className="center">{observable.author}</td>
-                <td className="center">{observable.count}</td>
-                <td className="center">{observable.updated_at}</td>
-                <td className="center">V</td>
+                <td className="center">{observable.since_master}</td>
+                <td className="center">{observable.last_deploy}</td>
               </tr>
             )}
             </tbody>
