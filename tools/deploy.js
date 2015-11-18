@@ -15,8 +15,8 @@ import fetch from './lib/fetch';
 // For more information visit http://gitolite.com/deploy.html
 const getHerokuRemote = () => ({
   name: 'heroku',
-  url: 'https://git.heroku.com/ancient-ravine-1054.git',
-  website: 'http://ancient-ravine-1054.herokuapp.com/'
+  url: 'https://git.heroku.com/workable-observatory.git',
+  website: 'http://workable-observatory.herokuapp.com/'
 });
 
 /**
