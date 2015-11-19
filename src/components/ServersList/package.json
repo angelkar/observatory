@@ -1,0 +1,6 @@
+{
+  "name": "ServersList",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ServersList.js"
+}

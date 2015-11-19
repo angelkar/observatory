@@ -37,7 +37,7 @@ class Poller {
   }
 
   store(items) {
-    items.forEach((observable, index) => {
+    items.forEach((item, index) => {
       //TODO save last result
     });
     return items;
@@ -46,7 +46,7 @@ class Poller {
   broadcast(items) {
     Promise.all(items).then((responses) => {
       this.io.emit('observe', {
-        observables: responses
+        servers: responses
       });
     });
   }

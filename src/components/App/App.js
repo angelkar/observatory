@@ -5,7 +5,7 @@ import styles from './App.css';
 import withContext from '../../decorators/withContext';
 import withStyles from '../../decorators/withStyles';
 import Header from '../Header';
-import ObservablesPage from '../ObservablesPage';
+import ServersList from '../ServersList';
 import Footer from '../Footer';
 
 @withContext
@@ -21,7 +21,7 @@ class App extends Component {
     return !this.props.error ? (
       <div>
         <Header />
-        <ObservablesPage />
+        <ServersList />
       </div>
     ) : this.props.children;
   }

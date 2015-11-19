@@ -2,17 +2,17 @@
 
 import React, { PropTypes, Component } from 'react';
 import io from 'socket.io-client'
-import styles from './ObservablesPage.scss';
+import styles from './ServersList.scss';
 import withStyles from '../../decorators/withStyles';
 import http from '../../core/HttpClient';
 
 @withStyles(styles)
-class ObservablesPage extends Component {
+class ServersList extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      observables: [],
+      servers: [],
     }
   }
 
@@ -20,7 +20,7 @@ class ObservablesPage extends Component {
     let socket = io.connect();
     socket.on('observe', (response) => {
       this.setState({
-        observables: response.observables
+        servers: response.servers
       });
     });
   }
@@ -41,16 +41,16 @@ class ObservablesPage extends Component {
               <th className="center">Commits since master</th>
               <th className="center">Last Deployment</th>
             </tr>
-            { this.state.observables.map((observable, i) =>
+            { this.state.servers.map((server, i) =>
               <tr>
-                <td className="center">{observable.server}</td>
-                <td className="center">{observable.environment}</td>
-                <td className="center">{observable.branch}</td>
-                <td className="center">{observable.commit}</td>
-                <td className="center">{observable.sha}</td>
-                <td className="center">{observable.author}</td>
-                <td className="center">{observable.since_master}</td>
-                <td className="center">{observable.last_deploy}</td>
+                <td className="center">{server.server}</td>
+                <td className="center">{server.environment}</td>
+                <td className="center">{server.branch}</td>
+                <td className="center">{server.commit}</td>
+                <td className="center">{server.sha}</td>
+                <td className="center">{server.author}</td>
+                <td className="center">{server.since_master}</td>
+                <td className="center">{server.last_deploy}</td>
               </tr>
             )}
             </tbody>
@@ -62,4 +62,4 @@ class ObservablesPage extends Component {
 
 }
 
-export default ObservablesPage;
+export default ServersList;
