@@ -50,23 +50,14 @@ app.get('*', async (req, res, next) => {
 });
 
 //
-// Launch the server
+// Launch the server with WebSocket support on the same port
 // -----------------------------------------------------------------------------
-// Remove this, we need the port for the server instance below
-// app.listen(app.get('port'), () => {
-//   /* eslint-disable no-console */
-//   console.log('The server is running at http://localhost:' + app.get('port'));
-//   if (process.send) {
-//     process.send('online');
-//   }
-// });
-
-//
-// Attach the socket.io server
-// -----------------------------------------------------------------------------
-const server = http.createServer(app);
-server.listen(port);
+const server = http.Server(app);
+server.listen(port, () => {
+  if (process.send) {
+    process.send('online');
+  }
+});
 const socket_io = io.listen(server);
-
 let poller = new Poller(socket_io);
 poller.execute();
