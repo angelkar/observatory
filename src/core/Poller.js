@@ -11,8 +11,11 @@ class Poller {
     this.stagings = getStagingEnvironments();
   }
 
-  execute() {
+  tap() {
     this.request();
+  }
+
+  execute() {
     this.poll();
   }
 

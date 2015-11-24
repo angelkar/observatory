@@ -60,4 +60,7 @@ server.listen(port, () => {
 });
 const socket_io = io.listen(server);
 let poller = new Poller(socket_io);
+socket_io.on('connect', () =>{
+  poller.tap();
+});
 poller.execute();
