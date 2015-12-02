@@ -25,8 +25,12 @@ class ServersList extends Component {
     });
   }
 
-  github_path() {
+  branch_path() {
     return 'https://github.com/Workable/workable/tree';
+  }
+
+  commit_path() {
+    return 'https://github.com/Workable/workable/commit'
   }
 
   render() {
@@ -49,9 +53,9 @@ class ServersList extends Component {
               <tr>
                 <td className="center">{server.server}</td>
                 <td className="center">{server.environment}</td>
-                <td className="center"><a href={`${this.github_path()}/${server.branch}`} target="_blank">{server.branch}</a></td>
+                <td className="center"><a href={`${this.branch_path()}/${server.branch}`} target="_blank">{server.branch}</a></td>
                 <td className="center">{server.commit}</td>
-                <td className="center">{server.sha}</td>
+                <td className="center"><a href={`${this.commit_path()}/${server.sha}`} target="_blank">{server.sha}</a></td>
                 <td className="center">{server.author}</td>
                 <td className="center">{server.since_master}</td>
                 <td className="center">{server.last_deploy}</td>
