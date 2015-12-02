@@ -25,6 +25,10 @@ class ServersList extends Component {
     });
   }
 
+  github_path() {
+    return 'https://github.com/Workable/workable/tree';
+  }
+
   render() {
     return (
       <div className="container">
@@ -45,7 +49,7 @@ class ServersList extends Component {
               <tr>
                 <td className="center">{server.server}</td>
                 <td className="center">{server.environment}</td>
-                <td className="center">{server.branch}</td>
+                <td className="center"><a href={`${this.github_path()}/${server.branch}`} target="_blank">{server.branch}</a></td>
                 <td className="center">{server.commit}</td>
                 <td className="center">{server.sha}</td>
                 <td className="center">{server.author}</td>
