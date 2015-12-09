@@ -10,12 +10,12 @@ class Header extends Component {
   render() {
     return (
       <header>
-        <div className="parallax-viewport">
-          <img className="parallax-layer" src={require('./headerbg-back.jpg')} />
-          <img className="parallax-layer" src={require('./headerbg-middle.png')} />
-          <img className="parallax-layer" src={require('./headerbg-front.png')} />
+        <div className="parallax">
+          <img className="parallax-layer parallax-layer-base" src={require('./headerbg-back.jpg')} />
+          <img className="parallax-layer parallax-layer-one" src={require('./headerbg-middle.png')} />
+          <img className="parallax-layer parallax-layer-two" src={require('./headerbg-front.png')} />
         </div>
-        <div className="header-content">
+        <div className="header-logo">
           <span className="logo"></span>
           <h1 className="mainHeader">OBSERVATORY</h1>
         </div>

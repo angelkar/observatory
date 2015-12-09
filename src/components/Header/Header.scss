@@ -27,42 +27,57 @@ header {
   width: 100%;
   border-bottom: 2px solid $dark;
   height: 235px;
-  background-color: #0b1213;
 
-  .header-content {
+  /* PARALLAX */
+  .parallax {
+    perspective: 2px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 235px;
+  }
+
+  .parallax-layer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .parallax-layer-base {
+    transform: translateZ(0);
+  }
+  .parallax-layer-one {
+    transform: translateZ(-1px) scale(1);
+  }
+  .parallax-layer-two {
+    transform: translateZ(-2px) scale(1);
+  }
+
+  /* LOGO DIV */
+  .header-logo {
     margin-top: -215px;
+    margin-left: auto;
+    margin-right: auto;
     position: relative;
     z-index: 2;
-  }
+    width:200px;
 
-  .parallax-viewport {
-    position: relative;
-    overflow: hidden;
-    height: 235px;
-    width: 100%;
-    z-index: 1;
-    img.parallax-layer{
-      position: absolute;
-      top: 50%;
-      margin-top: -170px;
-      left: 50%;
-      margin-left: -1280px;
+    .logo {
+      display: block;
+      background: url('./logo.png') no-repeat center;
+      width: 155px;
+      height: 155px;
+      margin: 0 auto;
     }
-  }
 
-  .logo {
-    display: block;
-    background: url('./logo.png') no-repeat center;
-    width: 155px;
-    height: 155px;
-    margin: 0 auto;
-  }
-  h1 {
-    margin: 10px 0 0;
-    padding: 0;
-    font-weight: 300;
-    font-size: 24px;
-    color: white;
-    text-shadow: 0 1px 0 black;
+    h1 {
+      margin: 10px 0 0;
+      padding: 0;
+      font-weight: 300;
+      font-size: 24px;
+      color: white;
+      text-shadow: 0 1px 0 black;
+    }
   }
 }
