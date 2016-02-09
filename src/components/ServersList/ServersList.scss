@@ -37,7 +37,7 @@ body {
       width: 90vw;
       margin: 0 auto;
       tr {
-        &:nth-child(2) {
+        &:nth-child(odd) {
           td {
             background-color: $light;
           }
@@ -47,12 +47,6 @@ body {
         background-color: $dark;
         color: white;
         font-weight: 700;
-        &:first-child {
-
-        }
-        &:last-child {
-
-        }
       }
       td, th {
         padding: 10px;
@@ -64,7 +58,6 @@ body {
     }
   }
   .lbl {
-
     display: inline-block;
     padding: 0 3px;
     font-size: 12px;
