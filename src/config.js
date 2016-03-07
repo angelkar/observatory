@@ -2,5 +2,5 @@
 
 export default {
   googleAnalyticsId: 'UA-XXXXX-X',
-  poller_interval: 15000
+  pollerInterval: 15000
 };

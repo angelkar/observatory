@@ -8,8 +8,8 @@ import ReactDOM from 'react-dom/server';
 import Router from './routes';
 import Html from './components/Html';
 import http from 'http';
-import io from 'socket.io'
-import Poller from './core/poller'
+import io from 'socket.io';
+import Poller from './core/poller';
 
 const app = global.server = express();
 const port = (process.env.PORT || 5000);
@@ -58,9 +58,9 @@ server.listen(port, () => {
     process.send('online');
   }
 });
-const socket_io = io.listen(server);
-let poller = new Poller(socket_io);
-socket_io.on('connect', () =>{
+const webSocketConnection = io.listen(server);
+const poller = new Poller(webSocketConnection);
+webSocketConnection.on('connect', () =>{
   poller.tap();
 });
 poller.execute();

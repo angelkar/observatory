@@ -1,7 +1,5 @@
-'use strict';
-
 import http from './HttpClient';
-import { poller_interval } from '../config';
+import { pollerInterval } from '../config';
 import { getStagingEnvironments } from '../env';
 
 class Poller {
@@ -22,7 +20,7 @@ class Poller {
   poll() {
     setInterval(() => {
       this.request();
-    }, poller_interval);
+    }, pollerInterval);
   }
 
   request() {
@@ -36,7 +34,9 @@ class Poller {
   }
 
   compact(items) {
-    return items.filter(function(item){ return (item !== null);});
+    return items.filter((item) => {
+      return (item !== null);
+    });
   }
 
   store(items) {
@@ -49,15 +49,15 @@ class Poller {
   broadcast(items) {
     Promise.all(items).then((responses) => {
       this.io.emit('observe', {
-        servers: responses
+        servers: responses,
       });
     });
   }
 
   pingServers() {
-    let promises = [];
-    for (let staging of this.stagings) {
-      let promise = http.get(staging.url + '/version');
+    const promises = [];
+    for (const staging of this.stagings) {
+      const promise = http.get(staging.url + '/version');
       promises.push(promise);
     }
     return promises;
